@@ -1,0 +1,370 @@
+/* ══════════════════════════════════════════════════════
+   Kicau Mart — Custom CSS
+   Tailwind CDN handles utilities; this file covers:
+   · Google Fonts import (fallback)
+   · Hero background & blob decorations
+   · Feature card, social btn, float badge helpers
+   · Navbar scroll behaviour
+   ══════════════════════════════════════════════════════ */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fafaf7;
+}
+
+/* ---------- Scrollbar (webkit) ---------- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #b7d4b8; border-radius: 99px; }
+
+/* ══════════════════════════════════════════════════════
+   NAVBAR — scroll effect (class toggled by JS)
+   ══════════════════════════════════════════════════════ */
+#navbar {
+  background: transparent;
+}
+
+#navbar.scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 24px 0 rgba(46, 125, 50, 0.08);
+}
+
+/* ══════════════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════════════ */
+.hero-bg {
+  background: linear-gradient(135deg, #f2f9f2 0%, #fafaf7 50%, #faefd8 100%);
+}
+
+/* Decorative floating blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #a5d6a7, #e0f2e0);
+  top: -120px;
+  right: -120px;
+  animation: blobMove1 12s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #fbbf24, #fef3c7);
+  bottom: -80px;
+  left: -80px;
+  animation: blobMove2 15s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, #86efac, #d1fae5);
+  top: 40%;
+  left: 30%;
+  animation: blobMove1 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes blobMove1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.08); }
+}
+
+@keyframes blobMove2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, 20px) scale(1.06); }
+}
+
+/* Hero image ring pulse */
+.hero-image-ring {
+  box-shadow: 0 0 0 12px rgba(46, 125, 50, 0.08),
+              0 0 0 24px rgba(46, 125, 50, 0.04);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { box-shadow: 0 0 0 12px rgba(46,125,50,0.08), 0 0 0 24px rgba(46,125,50,0.04); }
+  50%       { box-shadow: 0 0 0 18px rgba(46,125,50,0.12), 0 0 0 34px rgba(46,125,50,0.06); }
+}
+
+/* Floating badges around hero image */
+.float-badge {
+  position: absolute;
+  background: white;
+  color: #1b4d1e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: 99px;
+  box-shadow: 0 4px 20px rgba(46, 125, 50, 0.15);
+  white-space: nowrap;
+  animation: floatY 3s ease-in-out infinite;
+}
+
+.float-badge-top {
+  top: 10px;
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.float-badge-bottom {
+  bottom: 24px;
+  right: -30px;
+  animation-delay: 1.5s;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ══════════════════════════════════════════════════════
+   PRODUCT CARD
+   ══════════════════════════════════════════════════════ */
+.product-card {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 24px 0 rgba(46, 125, 50, 0.08);
+  transition: transform 0.28s cubic-bezier(.25,.8,.25,1),
+              box-shadow 0.28s cubic-bezier(.25,.8,.25,1);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.012);
+  box-shadow: 0 20px 48px 0 rgba(46, 125, 50, 0.16);
+}
+
+.product-card-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.product-card:hover .product-card-img {
+  transform: scale(1.05);
+}
+
+.product-card-body {
+  padding: 1.25rem 1.25rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Badge labels */
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-bottom: 0.5rem;
+}
+
+.badge-hot  { background: #fee2e2; color: #dc2626; }
+.badge-new  { background: #dbeafe; color: #2563eb; }
+.badge-sale { background: #fef9c3; color: #b45309; }
+.badge-eco  { background: #dcfce7; color: #16a34a; }
+
+/* Add-to-cart button */
+.btn-cart {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.btn-cart:hover {
+  background: #256428;
+  box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
+}
+
+.btn-cart:active {
+  transform: scale(0.96);
+}
+
+/* ══════════════════════════════════════════════════════
+   FEATURE CARD
+   ══════════════════════════════════════════════════════ */
+.feature-card {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 2px 16px rgba(46, 125, 50, 0.06);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 32px rgba(46, 125, 50, 0.14);
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  transition: background 0.25s;
+}
+
+/* ══════════════════════════════════════════════════════
+   CART SIDEBAR items
+   ══════════════════════════════════════════════════════ */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  animation: slideInRight 0.3s ease both;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.cart-item-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2328;
+  line-height: 1.4;
+}
+
+.cart-item-price {
+  font-size: 0.8rem;
+  color: #2e7d32;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.qty-btn:hover { background: #f3f4f6; border-color: #d1d5db; }
+
+.qty-display {
+  min-width: 24px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1f2328;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d1d5db;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.15s, background 0.15s;
+  margin-left: auto;
+}
+
+.remove-btn:hover { color: #ef4444; background: #fee2e2; }
+
+/* ══════════════════════════════════════════════════════
+   SOCIAL BUTTONS
+   ══════════════════════════════════════════════════════ */
+.social-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #1f2d1f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.social-btn:hover {
+  background: #f59e0b;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ══════════════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════════════ */
+#toast {
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════
+   KEYFRAME HELPERS (referenced by Tailwind config)
+   ══════════════════════════════════════════════════════ */
+@keyframes slide-down {
+  0%   { opacity: 0; transform: translateY(-12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bounce-in {
+  0%   { transform: scale(0.7); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
+}
